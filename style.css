@@ -1,0 +1,823 @@
+/* ==========================================================================
+   OmniCalc - Modern Web Calculator Stylesheet
+   ========================================================================== */
+
+:root {
+  /* Dark Theme Variables (Default) */
+  --bg-primary: #0f141c;
+  --bg-secondary: rgba(26, 34, 48, 0.75);
+  --bg-card: rgba(22, 29, 41, 0.85);
+  --bg-display: rgba(14, 19, 28, 0.9);
+  --bg-history: rgba(18, 24, 34, 0.95);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(99, 102, 241, 0.6);
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  
+  /* Key Colors */
+  --btn-num-bg: rgba(33, 44, 61, 0.8);
+  --btn-num-hover: rgba(43, 56, 78, 0.95);
+  --btn-num-active: rgba(53, 68, 95, 1);
+  --btn-num-text: #f1f5f9;
+  
+  --btn-func-bg: rgba(40, 52, 71, 0.85);
+  --btn-func-hover: rgba(52, 67, 92, 1);
+  --btn-func-text: #cbd5e1;
+  
+  --btn-op-bg: rgba(49, 46, 129, 0.5);
+  --btn-op-hover: rgba(67, 56, 202, 0.8);
+  --btn-op-active: #6366f1;
+  --btn-op-text: #a5b4fc;
+  --btn-op-highlight: #818cf8;
+  
+  --btn-equals-bg: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  --btn-equals-hover: linear-gradient(135deg, #7175f7 0%, #5850ec 100%);
+  --btn-equals-active: #4338ca;
+  --btn-equals-text: #ffffff;
+  --btn-equals-shadow: 0 4px 18px rgba(99, 102, 241, 0.45);
+  
+  --shadow-card: 0 24px 48px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --glow-1: rgba(99, 102, 241, 0.2);
+  --glow-2: rgba(168, 85, 247, 0.15);
+  
+  --radius-app: 28px;
+  --radius-btn: 16px;
+  --radius-sm: 8px;
+  
+  --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+[data-theme="light"] {
+  --bg-primary: #f1f5f9;
+  --bg-secondary: rgba(255, 255, 255, 0.85);
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-display: rgba(248, 250, 252, 0.95);
+  --bg-history: rgba(255, 255, 255, 0.98);
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-focus: rgba(79, 70, 229, 0.5);
+  
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  
+  --btn-num-bg: rgba(255, 255, 255, 0.9);
+  --btn-num-hover: rgba(241, 245, 249, 1);
+  --btn-num-active: rgba(226, 232, 240, 1);
+  --btn-num-text: #1e293b;
+  
+  --btn-func-bg: rgba(235, 240, 246, 0.9);
+  --btn-func-hover: rgba(220, 228, 238, 1);
+  --btn-func-text: #334155;
+  
+  --btn-op-bg: rgba(238, 242, 255, 0.9);
+  --btn-op-hover: rgba(224, 231, 255, 1);
+  --btn-op-active: #4f46e5;
+  --btn-op-text: #4338ca;
+  --btn-op-highlight: #4f46e5;
+  
+  --btn-equals-bg: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+  --btn-equals-hover: linear-gradient(135deg, #5b52ee 0%, #4a3fd8 100%);
+  --btn-equals-active: #3730a3;
+  --btn-equals-text: #ffffff;
+  --btn-equals-shadow: 0 4px 16px rgba(79, 70, 229, 0.35);
+  
+  --shadow-card: 0 20px 40px -10px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --glow-1: rgba(99, 102, 241, 0.12);
+  --glow-2: rgba(236, 72, 153, 0.08);
+}
+
+/* ==========================================================================
+   Base & Layout
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-ui);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+}
+
+/* Ambient Background Lights */
+.background-decorations {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.8;
+  animation: float 20s infinite ease-in-out alternate;
+}
+
+.orb-1 {
+  width: 500px;
+  height: 500px;
+  background: var(--glow-1);
+  top: -100px;
+  right: -100px;
+}
+
+.orb-2 {
+  width: 450px;
+  height: 450px;
+  background: var(--glow-2);
+  bottom: -80px;
+  left: -80px;
+  animation-duration: 25s;
+  animation-direction: alternate-reverse;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, 40px) scale(1.08); }
+  100% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+/* Container */
+.app-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 860px;
+}
+
+/* ==========================================================================
+   Calculator Card
+   ========================================================================== */
+
+.calculator-card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-app);
+  box-shadow: var(--shadow-card);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Header */
+.calculator-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+}
+
+.brand-icon {
+  width: 22px;
+  height: 22px;
+  color: #6366f1;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.icon-button {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.45rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.icon-button svg {
+  width: 19px;
+  height: 19px;
+}
+
+.icon-button:hover {
+  color: var(--text-primary);
+  background: var(--border-color);
+}
+
+.icon-button:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.icon-button.small {
+  padding: 0.35rem;
+}
+
+.icon-button.small svg {
+  width: 16px;
+  height: 16px;
+}
+
+.badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: #6366f1;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+/* ==========================================================================
+   Screen / Display Area
+   ========================================================================== */
+
+.display-container {
+  background: var(--bg-display);
+  border: 1px solid var(--border-color);
+  border-radius: calc(var(--radius-app) - 8px);
+  padding: 1.1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 116px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.display-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 22px;
+}
+
+.memory-badge {
+  background: rgba(99, 102, 241, 0.2);
+  color: #818cf8;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+
+.expression-display {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  text-align: right;
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.display-main-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.result-display {
+  font-family: var(--font-mono);
+  font-size: 2.35rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  text-align: right;
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.15;
+  transition: font-size 0.15s ease;
+}
+
+/* Copy Result Button */
+.copy-button {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  opacity: 0.6;
+}
+
+.copy-button svg {
+  width: 17px;
+  height: 17px;
+}
+
+.copy-button:hover {
+  opacity: 1;
+  color: var(--text-primary);
+  background: var(--border-color);
+}
+
+/* ==========================================================================
+   Memory Buttons Row
+   ========================================================================== */
+
+.memory-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.mem-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.45rem 0.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.mem-btn:hover {
+  background: var(--border-color);
+  color: var(--text-primary);
+}
+
+.mem-btn:active {
+  transform: scale(0.96);
+}
+
+.mem-btn:focus-visible {
+  outline: 2px solid var(--border-focus);
+}
+
+/* ==========================================================================
+   Keypad Grid
+   ========================================================================== */
+
+.keypad-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.key {
+  position: relative;
+  height: 60px;
+  border-radius: var(--radius-btn);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: 1.25rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.key:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.key:active, .key.is-pressed {
+  transform: translateY(1px) scale(0.96);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.key:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Number Keys */
+.num-key {
+  background: var(--btn-num-bg);
+  color: var(--btn-num-text);
+}
+
+.num-key:hover {
+  background: var(--btn-num-hover);
+}
+
+.num-key:active, .num-key.is-pressed {
+  background: var(--btn-num-active);
+}
+
+/* Function Keys (AC, Backspace, %) */
+.func-key {
+  background: var(--btn-func-bg);
+  color: var(--btn-func-text);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.func-key:hover {
+  background: var(--btn-func-hover);
+}
+
+/* Operator Keys (÷, ×, −, +) */
+.op-key {
+  background: var(--btn-op-bg);
+  color: var(--btn-op-text);
+  font-size: 1.45rem;
+  font-weight: 500;
+}
+
+.op-key:hover {
+  background: var(--btn-op-hover);
+  color: #ffffff;
+}
+
+.op-key.active-operator {
+  background: var(--btn-op-active);
+  color: #ffffff;
+  box-shadow: 0 0 14px rgba(99, 102, 241, 0.6);
+  border-color: #818cf8;
+}
+
+/* Equals Key */
+.equals-key {
+  background: var(--btn-equals-bg);
+  color: var(--btn-equals-text);
+  font-size: 1.5rem;
+  font-weight: 600;
+  box-shadow: var(--btn-equals-shadow);
+  border: none;
+}
+
+.equals-key:hover {
+  background: var(--btn-equals-hover);
+  box-shadow: 0 6px 22px rgba(99, 102, 241, 0.6);
+}
+
+.equals-key:active, .equals-key.is-pressed {
+  background: var(--btn-equals-active);
+}
+
+/* ==========================================================================
+   Footer Hint
+   ========================================================================== */
+
+.calculator-footer {
+  text-align: center;
+  margin-top: 0.1rem;
+}
+
+.hint-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+kbd {
+  background: var(--border-color);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  border: 1px solid var(--border-color);
+}
+
+/* ==========================================================================
+   History Drawer / Panel
+   ========================================================================== */
+
+.history-drawer {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 320px;
+  height: calc(100% - 3rem);
+  background: var(--bg-history);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-app);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(30px) scale(0.96);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 10;
+}
+
+.history-drawer.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0) scale(1);
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.history-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.history-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.text-button {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.text-button:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.history-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.history-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+.history-item {
+  background: var(--border-color);
+  padding: 0.75rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: right;
+}
+
+.history-item:hover {
+  background: rgba(99, 102, 241, 0.15);
+  transform: translateX(-2px);
+}
+
+.history-expression {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.history-result {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.history-empty {
+  margin: auto;
+  text-align: center;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.history-empty svg {
+  opacity: 0.4;
+  margin-bottom: 0.25rem;
+}
+
+.history-empty p {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.history-empty .subtext {
+  font-size: 0.75rem;
+  max-width: 180px;
+}
+
+/* ==========================================================================
+   Modal Dialog
+   ========================================================================== */
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  width: 90%;
+  max-width: 400px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  animation: scaleUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.modal-header h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.shortcut-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+.shortcut-keys {
+  display: flex;
+  gap: 0.3rem;
+}
+
+/* ==========================================================================
+   Toast Notification
+   ========================================================================== */
+
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  background: #1e293b;
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.65rem 1.25rem;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: none;
+  animation: toastIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="light"] .toast {
+  background: #0f172a;
+}
+
+/* ==========================================================================
+   Utilities & Animations
+   ========================================================================== */
+
+.hidden {
+  display: none !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translate(-50%, 15px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* Responsive adjustments */
+@media (min-width: 820px) {
+  .app-container.has-history-open {
+    max-width: 760px;
+    gap: 1.5rem;
+  }
+  
+  .app-container.has-history-open .history-drawer {
+    position: static;
+    height: auto;
+    min-height: 480px;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+}
+
+@media (max-width: 440px) {
+  .calculator-card {
+    padding: 1.15rem;
+    gap: 0.9rem;
+    border-radius: 22px;
+  }
+  
+  .key {
+    height: 52px;
+    font-size: 1.15rem;
+  }
+  
+  .result-display {
+    font-size: 2rem;
+  }
+}
